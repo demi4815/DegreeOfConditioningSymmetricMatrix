@@ -85,7 +85,7 @@ public class DegreeOfConditioningSymmetricMatrix
         return A;
     }
 
-    public static double directIterationMethod(RealMatrix A)
+    public static double directIterationMethod(RealMatrix A) //Метод прямых итераций
     {
         double eps = 0.001;
 
@@ -106,7 +106,6 @@ public class DegreeOfConditioningSymmetricMatrix
 
         xCurr = xNext.copy();
         RealMatrix sPrev = sCurr.copy();
-        //System.out.println(sCurr);
 
         boolean flag = true;
         double Ln = 0;
@@ -119,8 +118,6 @@ public class DegreeOfConditioningSymmetricMatrix
             xNext = A.multiply(v);
             vt = v.transpose();
             sCurr = vt.multiply(xNext);
-            //System.out.println(sCurr);
-            //System.out.println(v);
 
             if(Math.abs(sCurr.getEntry(0, 0) - sPrev.getEntry(0, 0)) <= eps)//|s[k] - s[k-1]| <= eps
             {
@@ -131,10 +128,6 @@ public class DegreeOfConditioningSymmetricMatrix
 
             xCurr = xNext.copy();
             sPrev = sCurr.copy();
-
-            //if((sCurr.subtract(sPrev)).getNorm() <= eps)
-            //if(Math.abs(sCurr.getEntry(0, 0) - sPrev.getEntry(0, 0)) <= eps)
-            //if(k > 10)
         }
 
         System.out.println(Ln);
@@ -142,10 +135,9 @@ public class DegreeOfConditioningSymmetricMatrix
         System.out.println(k);
 
         return Ln;
-
     }
 
-    public static double reverseIterationMethod(RealMatrix A)
+    public static double reverseIterationMethod(RealMatrix A) //Метод обратных итераций
     {
         double eps = 0.001;
 
@@ -166,7 +158,6 @@ public class DegreeOfConditioningSymmetricMatrix
 
         xCurr = xNext.copy();
         RealMatrix aPrev = aCurr.copy();
-        //System.out.println(sCurr);
 
         boolean flag = true;
         double L1 = 0;
@@ -179,12 +170,10 @@ public class DegreeOfConditioningSymmetricMatrix
             xNext = (MatrixUtils.inverse(A)).multiply(v);
             vt = v.transpose();
             aCurr = vt.multiply(xNext);
-            //System.out.println(sCurr);
-            //System.out.println(v);
 
             if(Math.abs(aCurr.getEntry(0, 0) - aPrev.getEntry(0, 0)) <= eps)//|a[k] - a[k-1]| <= eps
             {
-                L1 = 1 / aCurr.getNorm(); // L1 = 1 / a[k] - минимальное по модулю собственное значение
+                L1 = 1 / aCurr.getNorm(); // L1 = 1 / a[k] - максимальное по модулю собственное значение обратной матрицы
                 x1 = v.copy(); // x1 = v[k] - соответствующий собственный вектор
                 flag = false;
             }
@@ -197,8 +186,12 @@ public class DegreeOfConditioningSymmetricMatrix
         System.out.println(x1);
         System.out.println(k);
 
-        return L1;
+        return 1 / L1;
+    }
 
+    public static double conditionNumberOfTheMatrix(double L1, double Ln)
+    {
+        return Math.abs(Ln / L1);
     }
 
 

@@ -27,8 +27,14 @@ public class Tests
 
         System.out.println();
 
-        DegreeOfConditioningSymmetricMatrix.directIterationMethod(A);
+        double Ln = DegreeOfConditioningSymmetricMatrix.directIterationMethod(A);
         System.out.println();
-        DegreeOfConditioningSymmetricMatrix.reverseIterationMethod(A);
+        double L1 = DegreeOfConditioningSymmetricMatrix.reverseIterationMethod(A);
+
+        System.out.println();
+
+        double m =DegreeOfConditioningSymmetricMatrix.conditionNumberOfTheMatrix(L1, Ln);
+        System.out.println(m);
+
     }
 }
