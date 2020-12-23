@@ -53,7 +53,7 @@ public class DegreeOfConditioningSymmetricMatrix //мера обусловлен
     }
 
     public static double getMinL(RealMatrix L, int eps) {
-        double Lmin = Math.pow(10, eps);
+        double Lmin = 50;
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -66,7 +66,8 @@ public class DegreeOfConditioningSymmetricMatrix //мера обусловлен
         return Lmin;
     }
 
-    public static RealMatrix initH() {
+    public static RealMatrix initH()
+    {
         int w = (int) (Math.random() * n); //число [0; n)
         double[][] W1 = new double[n][1];
         for (int i = 0; i < n; i++) {
