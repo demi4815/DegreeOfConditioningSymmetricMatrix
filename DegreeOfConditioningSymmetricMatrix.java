@@ -9,17 +9,13 @@ public class DegreeOfConditioningSymmetricMatrix //мера обусловлен
 {
     static int n = 10, k, l;
 
-    public static RealMatrix initL(int eps) {
-        //double rand;
-        //if(eps == 1) rand = Math.random() * 4 - 2;
-        //else rand = Math.random() * 100 - 50;
+    public static RealMatrix initL(int eps)
+    {
         double[][] L1 = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (i == j) {
-                    //L1[i][j] = rand + Math.pow(10, -5);
-                    //rand = rand + Math.pow(10, -5);
-                    //L1[i][j] = Math.random() * 2 * Math.pow(10, eps) - Math.pow(10, eps);
+                if (i == j)
+                {
                     if(eps == 1)
                     {
                         L1[i][j] = Math.random() * 4 - 2; //[-2; 2)
@@ -108,7 +104,7 @@ public class DegreeOfConditioningSymmetricMatrix //мера обусловлен
 
     public static double directIterationMethod(RealMatrix A) //Метод прямых итераций
     {
-        double eps = 0.001;
+        double eps = 0.000001;
 
         double[][] xCurr1 = new double[n][1];
 
@@ -152,14 +148,13 @@ public class DegreeOfConditioningSymmetricMatrix //мера обусловлен
         /*System.out.println(Ln);
         System.out.println(xn);
         System.out.println(k);*/
-        //if (Math.abs(sCurr.getEntry(0, 0) - sPrev.getEntry(0, 0)) <= eps)
 
         return Ln;
     }
 
     public static double reverseIterationMethod(RealMatrix A) //Метод обратных итераций
     {
-        double eps = 0.001;
+        double eps = 0.000001;
 
         double[][] xCurr1 = new double[n][1];
 
