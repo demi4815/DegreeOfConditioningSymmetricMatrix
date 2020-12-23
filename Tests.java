@@ -7,7 +7,7 @@ public class Tests
 {
     public static void test1()
     {
-        int eps  = 3;
+        int eps  = 2;
         RealMatrix L = DegreeOfConditioningSymmetricMatrix.initL(eps);
         RealMatrix H = DegreeOfConditioningSymmetricMatrix.initH();
         RealMatrix A = DegreeOfConditioningSymmetricMatrix.initA(L, H);
@@ -42,14 +42,18 @@ public class Tests
     public static void test2()
     {
         int IER = 1;
-        double maxN = Math.pow(10, 2);
-        for (int n = 10; n <= maxN; n *= 10)
+        double maxN = 30;
+        for (int n = 10; n <= maxN; n += 10)
         {
             for (int eps = 1; eps <= 2; eps += 1)
             {
                 double absL1 = 0;
                 double absLn = 0;
-                double absm = 0;
+                double absM = 0;
+
+                double otnosL1 = 0;
+                double otnosLn = 0;
+                double otnosM = 0;
 
                 for (int cnt = 0; cnt < 10; cnt++)
                 {
@@ -67,14 +71,27 @@ public class Tests
                     double L1 = DegreeOfConditioningSymmetricMatrix.reverseIterationMethod(A);//минимальное по модулю собственное значение
                     double m2 = DegreeOfConditioningSymmetricMatrix.conditionNumberOfTheMatrix(L1, Ln);//число обусловленности
 
-                    absL1 = absL1 + Math.abs(Lmin - L1) / 10;
+                    /*absL1 = absL1 + Math.abs(Lmin - L1) / 10;
                     absLn = absLn + Math.abs(Lmax - Ln) / 10;
-                    absm = absm + Math.abs(m1 - m2) / 10;
+                    absm = absm + Math.abs(m1 - m2) / 10;*/
+
+                    absL1 = Lmin - L1;//абсолютная погрешность = точное - приближенное
+                    absLn =Lmax - Ln;
+                    absM = m1 - m2;
+
+                    otnosL1 = otnosL1 + Math.abs(absL1 / Lmin) * 100; //относительная погрешность в % = |абсолют / точное| * 100%
+                    otnosLn = otnosLn + Math.abs(absLn / Lmax) * 100;
+                    otnosM = otnosM + Math.abs(absM / m1) * 100;
                 }
-                System.out.println("N = " + n + ", L from " +  -Math.pow(10, eps) + " to " + Math.pow(10, eps) + ", " +
+               /* System.out.println("N = " + n + ", L from " +  -eps + " to " + eps + ", " +
                         " accuracy L1 = " + Precision.round(absL1, 3) +
                         " accuracy Ln = " + Precision.round(absLn, 3) +
-                        " accuracy m = " + Precision.round(absm, 3));
+                        " accuracy m = " + Precision.round(absM, 3));*/
+
+                System.out.println("N = " + n + ", L from " +  -eps + " to " + eps + ", " +
+                        " средняя относительная погрешность в % для L1 = " + otnosL1 / 10+
+                        " для Ln = " + otnosLn / 10+
+                        " для m = " + otnosM / 10);
             }
         }
         System.exit(IER);
