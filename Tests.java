@@ -71,10 +71,6 @@ public class Tests
                     double L1 = DegreeOfConditioningSymmetricMatrix.reverseIterationMethod(A);//минимальное по модулю собственное значение
                     double m2 = DegreeOfConditioningSymmetricMatrix.conditionNumberOfTheMatrix(L1, Ln);//число обусловленности
 
-                    /*absL1 = absL1 + Math.abs(Lmin - L1) / 10;
-                    absLn = absLn + Math.abs(Lmax - Ln) / 10;
-                    absm = absm + Math.abs(m1 - m2) / 10;*/
-
                     absL1 = Lmin - L1;//абсолютная погрешность = точное - приближенное
                     absLn =Lmax - Ln;
                     absM = m1 - m2;
